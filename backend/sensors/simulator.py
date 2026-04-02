@@ -57,7 +57,7 @@ FAULT_SCENARIOS = [
     FaultScenario(FaultType.MOTOR_BEARING_FAULT,     "VIB_BEARING", 25.0, 4.5,  "Ball bearing degradation"),
     FaultScenario(FaultType.POWER_SUPPLY_INSTABILITY,"VOLT_12V",    20.0, 0.7,  "DC-DC converter dropout"),
     FaultScenario(FaultType.OVERCURRENT_EVENT,       "CURR_MOTOR",  15.0, 2.5,  "Motor stall overcurrent"),
-    FaultScenario(FaultType.SENSOR_DROPOUT,          "TEMP_MCU",    10.0, 0.0,  "I2C sensor flatline"),
+    FaultScenario(FaultType.SENSOR_DROPOUT,          "TEMP_MCU",    10.0, 1.0,  "I2C sensor flatline"),
 ]
 
 

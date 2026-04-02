@@ -233,7 +233,7 @@ async def diagnose_fault(
         return {
             "sensor_id":   sensor_id,
             "root_cause":  "No anomaly detected",
-            "confidence":  0.0,
+            "confidence":  0.1,
             "fault_class": "normal",
             "actions":     [],
         }
