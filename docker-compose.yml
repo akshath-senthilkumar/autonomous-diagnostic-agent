@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ../docker/Dockerfile.backend
+    container_name: aeda-backend
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - DATABASE_URL=/app/data/sensors.db
+      - CORS_ORIGINS=http://localhost,http://frontend
+      - LOG_LEVEL=INFO
+      - ANOMALY_CHECK_INTERVAL=10
+    volumes:
+      - sensor_data:/app/data
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../docker/Dockerfile.frontend
+      args:
+        - VITE_API_URL=http://localhost:8000
+        - VITE_WS_URL=ws://localhost:8000/ws
+    container_name: aeda-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  sensor_data:
